@@ -1,20 +1,21 @@
-const pokelist = document.getElementsByClassName("pokemons")[0]
+const pokelist = document.getElementById('pokemons')
 const loadMoreButton = document.getElementById('loadMoreButton')
+const selectGen = document.getElementById('selectGen')
 const limit = 10
-const maxRecords = 150
+const maxRecords = {"gen_1": 152, "gen_2": 100, "gen_3": 135}
+let countRecords = 0
+const generations = {"gen_1": 0, "gen_2": 152, "gen_3": 252}
 let offset = 0
 
 
-
-
-
 function loadPokemonItens(offset, limit) {
-    if (offset / maxRecords < 1) {
+
+    if (countRecords / maxRecords[selectGen.value] < 1) {
     
     
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
         const newHtml = pokemons.map((pokemon) => `
-        <li class="pokemon ${pokemon.type}">
+        <li class="pokemon ${pokemon.type}" id="pokemon">
         <div class="pokeinfo">              
             <span class="name" style="font-weight: bold;">${pokemon.name}</span>
             <span class="number">#${pokemon.number}</span>
@@ -39,11 +40,20 @@ loadPokemonItens(offset, limit)
 
 loadMoreButton.addEventListener('click', () => {
     offset += limit
-    if (limit > maxRecords - offset) {
-        loadPokemonItens(offset, maxRecords - offset)
+    countRecords += limit
+    if (limit > maxRecords[selectGen.value] - countRecords) {
+        loadPokemonItens(offset, maxRecords[selectGen.value] - offset)
         loadMoreButton.parentElement.removeChild(loadMoreButton)
     } else {
         loadPokemonItens(offset, limit)
     }
 
+})
+
+selectGen.addEventListener('change', () => {
+    console.log(selectGen.value)
+    pokelist.innerHTML = ''
+    countRecords = 0
+    offset = generations[selectGen.value]
+    loadPokemonItens(offset, limit)
 })

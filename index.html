@@ -20,22 +20,12 @@
 <body>
     <section class="content">
         <h1>Pokedex</h1>
-        <ol class="pokemons">
-            <!--<li class="pokemon">
-                <div class="pokeinfo">              
-                    <span class="name" style="font-weight: bold;">Bulbasaur</span>
-                    <span class="number">#001</span>
-                    <ol class="types">
-                        <li class="type">Grass</li>
-                        <li class="type">Poison</li>
-                    </ol>
-                </div> 
-                <div class="pokeimg">
-                    <img src="assets/img/pokemons/poke (1).gif" alt="">
-                    <img class="imgbackground" src="https://pokemoncalc.web.app/en/assets/pokeball.svg" alt="">
-                </div>
-                
-            </li>-->
+        <select name="selectGen" id="selectGen">
+            <option selected value="gen_1">1th Gen</option>
+            <option value="gen_2">2nd Gen</option>
+            <option value="gen_3">3rd Gen</option>
+        </select>
+        <ol class="pokemons" id="pokemons">
 
         </ol>
         <div class="pagination">
